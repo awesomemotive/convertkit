@@ -1,0 +1,21 @@
+{
+    "name": "awesomemotive/convertkit",
+    "description": "An API wrapper for ConvertKit",
+    "require": {
+        "php": ">=5.3.3",
+        "guzzlehttp/guzzle": "^6.0"
+    },
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "J. Aaron Eaton",
+            "email": "aaron@channeleaton.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AwesomeMotive\\ConvertKit\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
