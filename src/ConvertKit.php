@@ -4,6 +4,7 @@ namespace AwesomeMotive\ConvertKit;
 
 use AwesomeMotive\ConvertKit\Exception\ServiceNotFoundException;
 use AwesomeMotive\ConvertKit\Service\CourseService;
+use AwesomeMotive\ConvertKit\Service\FormService;
 use AwesomeMotive\ConvertKit\Service\TagService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -75,6 +76,16 @@ class ConvertKit {
 	public function courses() {
 
 		return $this->getApi( 'CourseService' );
+
+	}
+
+	/**
+	 * @return FormService
+	 * @throws ServiceNotFoundException
+	 */
+	public function forms() {
+
+		return $this->getApi( 'FormService' );
 
 	}
 
