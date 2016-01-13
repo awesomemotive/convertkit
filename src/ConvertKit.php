@@ -144,6 +144,7 @@ class ConvertKit {
 					}
 				}
 				break;
+			case 'put' :
 			case 'post' :
 				if ( ! empty( $data ) ) {
 					$json = array();
