@@ -61,7 +61,7 @@ class ConvertKit {
 	public function getHttpClient() {
 		if ( ! $this->httpClient ) {
 			$this->httpClient = new Client( array(
-				'base_uri' => $this->baseUrl,
+				'base_url' => $this->baseUrl,
 			) );
 		}
 
