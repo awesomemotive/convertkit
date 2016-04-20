@@ -100,6 +100,16 @@ class ConvertKit {
 	}
 
 	/**
+	 * @return SubscriberService
+	 * @throws ServiceNotFoundException
+	 */
+	public function subscribers() {
+
+		return $this->getApi( 'SubscriberService' );
+
+	}
+
+	/**
 	 * @param string $class
 	 *
 	 * @return mixed
@@ -144,7 +154,7 @@ class ConvertKit {
 					}
 				}
 				break;
-				
+
 			case 'put' :
 			case 'post' :
 				if ( ! empty( $data ) ) {
