@@ -144,6 +144,7 @@ class ConvertKit {
 					}
 				}
 				break;
+				
 			case 'put' :
 			case 'post' :
 				if ( ! empty( $data ) ) {
@@ -154,6 +155,15 @@ class ConvertKit {
 					$options['json'] = $json;
 				}
 				break;
+
+			case 'delete' :
+				if ( ! empty( $data ) ) {
+					foreach ( $data as $key => $value ) {
+						$options['query'][ $key ] = $value;
+					}
+				}
+				break;
+
 		}
 
 		try {
