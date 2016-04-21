@@ -3,7 +3,8 @@
     "description": "An API wrapper for ConvertKit",
     "require": {
         "php": ">=5.3.3",
-        "guzzlehttp/guzzle": "^5.3"
+        "guzzlehttp/guzzle": "^5.3",
+        "guzzlehttp/retry-subscriber": "^2.0"
     },
     "license": "GPL-2.0+",
     "authors": [
