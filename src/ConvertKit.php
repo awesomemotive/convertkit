@@ -141,9 +141,10 @@ class ConvertKit {
 				);
 
 				if ($this->getRetryDelay()) {
-					$retryOptions['delay'] = function ($number, $event) { 
-						return $this->getRetryDelay(); 
-					}
+					$retryDelay = $this->getRetryDelay();
+					$retryOptions['delay'] = function ($number, $event) use ($retryDelay) { 
+						return $retryDelay;
+					};
 				}
 
 				if ($this->getRetryMax()) {
