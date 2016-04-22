@@ -7,9 +7,9 @@ class SubscriberService extends AbstractService {
 	/**
 	 * @return \stdClass
 	 */
-	public function all() {
+	public function all($data = array()) {
 
-		return $this->client->request( 'subscribers' );
+		return $this->client->request('subscribers', 'get', $data);
 
 	}
 
@@ -22,7 +22,7 @@ class SubscriberService extends AbstractService {
 
 		$path = 'subscribers/' . $subscriber_id;
 
-		return $this->client->request( $path, 'get');
+		return $this->client->request($path, 'get');
 
 	}
 
@@ -36,7 +36,7 @@ class SubscriberService extends AbstractService {
 
 		$path = 'subscribers/' . $subscriber_id;
 
-		return $this->client->request( $path, 'post', $data);
+		return $this->client->request($path, 'post', $data);
 
 	}
 
