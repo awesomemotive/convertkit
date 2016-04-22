@@ -23,6 +23,11 @@ class ConvertKit {
 	protected $apiKey;
 
 	/**
+	 * @var string
+	 */
+	protected $apiSecret;
+
+	/**
 	 * @var \GuzzleHttp\Client
 	 */
 	protected $httpClient;
@@ -47,10 +52,9 @@ class ConvertKit {
 	 */
 	protected $retryMax;
 
-	public function __construct( $apiKey = '' ) {
-
+	public function __construct( $apiKey = '', $apiSecret = null) {
 		$this->apiKey = $apiKey;
-
+		$this->apiSecret = $apiSecret;
 	}
 
 	/**
@@ -68,6 +72,24 @@ class ConvertKit {
 	public function setApiKey( $apiKey ) {
 
 		$this->apiKey = $apiKey;
+
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getApiSecret() {
+
+		return $this->apiSecret;
+
+	}
+
+	/**
+	 * @param string $apiSecret
+	 */
+	public function setApiSecret( $apiSecret ) {
+
+		$this->apiSecret = $apiSecret;
 
 	}
 
@@ -233,7 +255,8 @@ class ConvertKit {
 
 		$options = array(
 			'query' => array(
-				'api_key' => $this->getApiKey()
+				'api_key' => $this->getApiKey(),
+				'api_secret' => $this->getApiSecret(),
 			)
 		);
 
