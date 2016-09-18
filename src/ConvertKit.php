@@ -8,6 +8,7 @@ use AwesomeMotive\ConvertKit\Service\FormService;
 use AwesomeMotive\ConvertKit\Service\TagService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
 
 class ConvertKit {
 
@@ -22,6 +23,11 @@ class ConvertKit {
 	protected $apiKey;
 
 	/**
+	 * @var string
+	 */
+	protected $apiSecret;
+
+	/**
 	 * @var \GuzzleHttp\Client
 	 */
 	protected $httpClient;
@@ -31,10 +37,24 @@ class ConvertKit {
 	 */
 	protected $apis = array();
 
-	public function __construct( $apiKey = '' ) {
+	/**
+	 * @var array
+	 */
+	protected $retryCodes;
 
+	/**
+	 * @var int
+	 */
+	protected $retryDelay;
+
+	/**
+	 * @var int
+	 */
+	protected $retryMax;
+
+	public function __construct( $apiKey = '', $apiSecret = null) {
 		$this->apiKey = $apiKey;
-
+		$this->apiSecret = $apiSecret;
 	}
 
 	/**
@@ -56,13 +76,106 @@ class ConvertKit {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getApiSecret() {
+
+		return $this->apiSecret;
+
+	}
+
+	/**
+	 * @param string $apiSecret
+	 */
+	public function setApiSecret( $apiSecret ) {
+
+		$this->apiSecret = $apiSecret;
+
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getRetryCodes() {
+
+		return $this->retryCodes;
+
+	}
+
+	/**
+	 * @param array $retryCodes
+	 */
+	public function setRetryCodes( $retryCodes ) {
+
+		$this->retryCodes = $retryCodes;
+
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRetryDelay() {
+
+		return $this->retryDelay;
+
+	}
+
+	/**
+	 * @param int $retryDelay
+	 */
+	public function setRetryDelay( $retryDelay ) {
+
+		$this->retryDelay = $retryDelay;
+
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRetryMax() {
+
+		return $this->retryMax;
+
+	}
+
+	/**
+	 * @param int $retryMax
+	 */
+	public function setRetryMax( $retryMax ) {
+
+		$this->retryMax = $retryMax;
+
+	}
+
+	/**
 	 * @return \GuzzleHttp\Client
 	 */
 	public function getHttpClient() {
 		if ( ! $this->httpClient ) {
 			$this->httpClient = new Client( array(
-				'base_uri' => $this->baseUrl,
+				'base_url' => $this->baseUrl,
 			) );
+
+			// retryOptions if set
+			if ($this->getRetryCodes() && !empty($this->getRetryCodes())) {
+				$retryOptions = array(
+					'filter' => RetrySubscriber::createStatusFilter((array) $this->getRetryCodes())
+				);
+
+				if ($this->getRetryDelay()) {
+					$retryDelay = $this->getRetryDelay();
+					$retryOptions['delay'] = function ($number, $event) use ($retryDelay) { 
+						return $retryDelay;
+					};
+				}
+
+				if ($this->getRetryMax()) {
+					$retryOptions['max'] = (int) $this->getRetryMax();
+				}
+
+				$retry = new RetrySubscriber($retryOptions);
+				$this->httpClient->getEmitter()->attach($retry);
+			}
 		}
 
 		return $this->httpClient;
@@ -100,6 +213,16 @@ class ConvertKit {
 	}
 
 	/**
+	 * @return SubscriberService
+	 * @throws ServiceNotFoundException
+	 */
+	public function subscribers() {
+
+		return $this->getApi( 'SubscriberService' );
+
+	}
+
+	/**
 	 * @param string $class
 	 *
 	 * @return mixed
@@ -132,7 +255,8 @@ class ConvertKit {
 
 		$options = array(
 			'query' => array(
-				'api_key' => $this->getApiKey()
+				'api_key' => $this->getApiKey(),
+				'api_secret' => $this->getApiSecret(),
 			)
 		);
 
@@ -144,6 +268,8 @@ class ConvertKit {
 					}
 				}
 				break;
+
+			case 'put' :
 			case 'post' :
 				if ( ! empty( $data ) ) {
 					$json = array();
@@ -153,6 +279,15 @@ class ConvertKit {
 					$options['json'] = $json;
 				}
 				break;
+
+			case 'delete' :
+				if ( ! empty( $data ) ) {
+					foreach ( $data as $key => $value ) {
+						$options['query'][ $key ] = $value;
+					}
+				}
+				break;
+
 		}
 
 		try {
