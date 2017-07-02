@@ -1,6 +1,10 @@
 {
-    "name": "awesomemotive/convertkit",
+    "name": "examinecom/convertkit",
     "description": "An API wrapper for ConvertKit",
+    "keywords": [
+        "convertkit",
+        "convert kit"
+    ],
     "require": {
         "php": ">=5.3.3",
         "guzzlehttp/guzzle": "^6.0"
@@ -10,6 +14,12 @@
         {
             "name": "J. Aaron Eaton",
             "email": "aaron@channeleaton.com"
+        },
+        {
+            "name": "Andre Marcelo-Tanner",
+            "email": "andre@enthropia.com",
+            "homepage": "https://examine.com",
+            "role": "Developer"
         }
     ],
     "autoload": {
