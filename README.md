@@ -11,47 +11,49 @@ It is available at [https://packagist.org](https://packagist.org/packages/awesom
 
 ## Installation
 1. Download [Composer](https://getcomposer.org/download/) if not already installed
+
 2. Go to your project directory. If you do not have one, just create a directory and `cd` in.
 
     ```sh
-mkdir project
-cd project
+    mkdir project
+    cd project
     ```
-3. Execute `composer require "awesomemotive/convertkit:*" ` on command line. Replace composer with composer.phar if required. It should show something like this:
+
+3. Execute `composer require "examinecom/convertkit:*" ` on command line. Replace composer with composer.phar if required. It should show something like this:
 
     ```sh
-> composer require "awesomemotive/convertkit:*"
+    > composer require "examinecom/convertkit:*"
 
-Loading composer repositories with package information
-Updating dependencies (including require-dev)
-- Installing awesomemotive/convertkit (0.1)
-Loading from cache
+    Loading composer repositories with package information
+    Updating dependencies (including require-dev)
+    - Installing examinecom/convertkit (0.1)
+    Loading from cache
 
-Writing lock file
-Generating autoload files
+    Writing lock file
+    Generating autoload files
     ```
 
 ## How to use
 1. Make sure you are auto-loading Composer in your bootstrap file or main php file:
 
-	```php
-require_once __DIR__ . '/vendor/autoload.php';
-	```
+    ```php
+    require_once __DIR__ . '/vendor/autoload.php';
+    ```
 2. In your class or PHP file, include the namespace of the class:
 
-	```php
-use \AwesomeMotive\ConvertKit\ConvertKit;
-	```
+    ```php
+    use \AwesomeMotive\ConvertKit\ConvertKit;
+    ```
 3. In your constructor or wherever you want to instantiate / use the API, create a new instance of the class and use your **APP_ID** and **API_KEY** as the parameters:
 
-	```php
-$this->client = new ConvertKit("{API_KEY}", "{API_SECRET}");
-	```
+    ```php
+    $this->client = new ConvertKit("{API_KEY}", "{API_SECRET}");
+    ```
 4. Call one of the methods to access the API:
 
     ```php
-$response = $this->client->tags()->all();
-var_dump($response);
+    $response = $this->client->tags()->all();
+    var_dump($response);
     ```
 
 ## Sample code

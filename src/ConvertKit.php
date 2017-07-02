@@ -8,6 +8,7 @@ use AwesomeMotive\ConvertKit\Service\FormService;
 use AwesomeMotive\ConvertKit\Service\TagService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
 
 class ConvertKit {
 
@@ -36,11 +37,24 @@ class ConvertKit {
 	 */
 	protected $apis = array();
 
-	public function __construct( $apiKey = '', $apiSecret = null) {
+	/**
+	 * @var array
+	 */
+	protected $retryCodes;
 
+	/**
+	 * @var int
+	 */
+	protected $retryDelay;
+
+	/**
+	 * @var int
+	 */
+	protected $retryMax;
+
+	public function __construct( $apiKey = '', $apiSecret = null) {
 		$this->apiKey = $apiKey;
 		$this->apiSecret = $apiSecret;
-
 	}
 
 	/**
@@ -80,13 +94,88 @@ class ConvertKit {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getRetryCodes() {
+
+		return $this->retryCodes;
+
+	}
+
+	/**
+	 * @param array $retryCodes
+	 */
+	public function setRetryCodes( $retryCodes ) {
+
+		$this->retryCodes = $retryCodes;
+
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRetryDelay() {
+
+		return $this->retryDelay;
+
+	}
+
+	/**
+	 * @param int $retryDelay
+	 */
+	public function setRetryDelay( $retryDelay ) {
+
+		$this->retryDelay = $retryDelay;
+
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRetryMax() {
+
+		return $this->retryMax;
+
+	}
+
+	/**
+	 * @param int $retryMax
+	 */
+	public function setRetryMax( $retryMax ) {
+
+		$this->retryMax = $retryMax;
+
+	}
+
+	/**
 	 * @return \GuzzleHttp\Client
 	 */
 	public function getHttpClient() {
 		if ( ! $this->httpClient ) {
 			$this->httpClient = new Client( array(
-				'base_uri' => $this->baseUrl,
+				'base_url' => $this->baseUrl,
 			) );
+
+			// retryOptions if set
+			if ($this->getRetryCodes() && !empty($this->getRetryCodes())) {
+				$retryOptions = array(
+					'filter' => RetrySubscriber::createStatusFilter((array) $this->getRetryCodes())
+				);
+
+				if ($this->getRetryDelay()) {
+					$retryDelay = $this->getRetryDelay();
+					$retryOptions['delay'] = function ($number, $event) use ($retryDelay) { 
+						return $retryDelay;
+					};
+				}
+
+				if ($this->getRetryMax()) {
+					$retryOptions['max'] = (int) $this->getRetryMax();
+				}
+
+				$retry = new RetrySubscriber($retryOptions);
+				$this->httpClient->getEmitter()->attach($retry);
+			}
 		}
 
 		return $this->httpClient;
