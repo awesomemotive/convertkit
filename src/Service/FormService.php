@@ -14,14 +14,14 @@ class FormService extends AbstractService {
 	}
 
 	/**
-	 * @param int $course_id
+	 * @param int $form_id
 	 * @param array $data
 	 *
 	 * @return \stdClass
 	 */
-	public function subscribe( $course_id, $data ) {
+	public function subscribe( $form_id, $data ) {
 
-		$path = 'forms/' . $course_id . '/subscribe';
+		$path = 'forms/' . $form_id . '/subscribe';
 
 		return $this->client->request( $path, 'post', $data );
 

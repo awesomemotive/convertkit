@@ -27,4 +27,18 @@ class TagService extends AbstractService {
 
 	}
 
+	/**
+	 * @param int   $tag_id
+	 * @param int   $subscriber_id
+	 *
+	 * @return \stdClass
+	 */
+	public function delete( $tag_id, $subscriber_id) {
+
+		$path = 'subscribers/' . $subscriber_id . '/tags/' . $tag_id;
+
+		return $this->client->request( $path, 'delete');
+
+	}
+
 }
