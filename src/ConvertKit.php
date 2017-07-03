@@ -318,7 +318,10 @@ class ConvertKit
             /** @var \GuzzleHttp\Psr7\Response $response **/
             $response = $this->getHttpClient()->{$method}($path, $options);
 
-            return json_decode($response->getBody());
+            $responseBody = $response->json();
+            
+            return $responseBody;
+            
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 return $e->getResponse()->getBody()->getContents();
