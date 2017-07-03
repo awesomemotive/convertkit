@@ -1,14 +1,14 @@
 <?php
 
-namespace AwesomeMotive\ConvertKit;
+namespace Examinecom\ConvertKit;
 
-use AwesomeMotive\ConvertKit\Exception\ServiceNotFoundException;
-use AwesomeMotive\ConvertKit\Service\CustomFieldsService;
-use AwesomeMotive\ConvertKit\Service\FormService;
-use AwesomeMotive\ConvertKit\Service\SequenceService;
-use AwesomeMotive\ConvertKit\Service\SubscriberService;
-use AwesomeMotive\ConvertKit\Service\TagService;
-use AwesomeMotive\ConvertKit\Service\WebhookService;
+use Examinecom\ConvertKit\Exception\ServiceNotFoundException;
+use Examinecom\ConvertKit\Service\CustomFieldsService;
+use Examinecom\ConvertKit\Service\FormService;
+use Examinecom\ConvertKit\Service\SequenceService;
+use Examinecom\ConvertKit\Service\SubscriberService;
+use Examinecom\ConvertKit\Service\TagService;
+use Examinecom\ConvertKit\Service\WebhookService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
@@ -255,7 +255,7 @@ class ConvertKit
      */
     public function getApi($class)
     {
-        $fq_class = '\\AwesomeMotive\\ConvertKit\\Service\\'.$class;
+        $fq_class = '\\Examinecom\\ConvertKit\\Service\\'.$class;
 
         if (!class_exists($fq_class)) {
             throw new ServiceNotFoundException('Service: '.$class.' could not be found');

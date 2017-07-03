@@ -25,7 +25,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "AwesomeMotive\\ConvertKit\\": "src/"
+            "Examinecom\\ConvertKit\\": "src/"
         }
     },
     "minimum-stability": "stable"

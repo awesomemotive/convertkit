@@ -7,7 +7,7 @@ Based on original documentation located here: http://kb.convertkit.com/article/a
 
 [**composer**](https://getcomposer.org/) is the recommended way to install the SDK.
 
-It is available at [https://packagist.org](https://packagist.org/packages/awesomemotive/convertkit). To use it in your project, you need to include it as a dependency in your project composer.json file.
+It is available at [https://packagist.org](https://packagist.org/packages/examinecom/convertkit). To use it in your project, you need to include it as a dependency in your project composer.json file.
 
 ## Installation
 1. Download [Composer](https://getcomposer.org/download/) if not already installed
@@ -42,7 +42,7 @@ It is available at [https://packagist.org](https://packagist.org/packages/awesom
 2. In your class or PHP file, include the namespace of the class:
 
     ```php
-    use \AwesomeMotive\ConvertKit\ConvertKit;
+    use \Examinecom\ConvertKit\ConvertKit;
     ```
 3. In your constructor or wherever you want to instantiate / use the API, create a new instance of the class and use your **APP_ID** and **API_KEY** as the parameters:
 
@@ -63,7 +63,7 @@ It is available at [https://packagist.org](https://packagist.org/packages/awesom
 
 namespace App;
 
-use \AwesomeMotive\ConvertKit\ConvertKit;
+use \Examinecom\ConvertKit\ConvertKit;
 
 require_once __DIR__ . '/vendor/autoload.php';
 

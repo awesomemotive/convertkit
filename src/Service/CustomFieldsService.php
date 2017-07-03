@@ -1,6 +1,6 @@
 <?php
 
-namespace AwesomeMotive\ConvertKit\Service;
+namespace Examinecom\ConvertKit\Service;
 
 class CustomFieldsService extends AbstractService
 {
