@@ -14,16 +14,36 @@ class FormService extends AbstractService {
 	}
 
 	/**
-	 * @param int $form_id
+	 * @param int $formId
 	 * @param array $data
 	 *
 	 * @return \stdClass
 	 */
-	public function subscribe( $form_id, $data ) {
+	public function subscribe( $formId, $data ) {
 
-		$path = 'forms/' . $form_id . '/subscribe';
+		$path = 'forms/' . $formId . '/subscribe';
 
 		return $this->client->request( $path, 'post', $data );
+
+	}
+
+	/**
+	 * @param int $formId
+	 * @param stgrin $sortOrder
+	 *
+	 * @return \stdClass
+	 */
+	public function subscriptions( $formId, $sortOrder = null ) {
+
+		$path = 'forms/' . $formId . '/subscriptions';
+
+		$params = array();
+
+		if (isset($sortOrder)) {
+			$params['sort_order'] = $sortOrder;
+		}
+
+		return $this->client->request( $path, 'get', $params );
 
 	}
 

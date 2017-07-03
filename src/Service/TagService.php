@@ -14,28 +14,65 @@ class TagService extends AbstractService {
 	}
 
 	/**
-	 * @param int   $tag_id
-	 * @param array $data
+	 * @param string   $tagName
 	 *
 	 * @return \stdClass
 	 */
-	public function subscribe( $tag_id, $data ) {
+	public function create( $tagName ) {
 
-		$path = 'tags/' . $tag_id . '/subscribe';
+		$path = 'tags';
+
+		$data = array(
+			'name' => $tagName,
+		);
 
 		return $this->client->request( $path, 'post', $data );
 
 	}
 
 	/**
-	 * @param int   $tag_id
-	 * @param int   $subscriber_id
+	 * @param int   $tagId
+	 * @param array $data
 	 *
 	 * @return \stdClass
 	 */
-	public function delete( $tag_id, $subscriber_id) {
+	public function subscribe( $tagId, $data ) {
 
-		$path = 'subscribers/' . $subscriber_id . '/tags/' . $tag_id;
+		$path = 'tags/' . $tagId . '/subscribe';
+
+		return $this->client->request( $path, 'post', $data );
+
+	}
+
+	/**
+	 * @param int $tagId
+	 * @param stgrin $sortOrder
+	 *
+	 * @return \stdClass
+	 */
+	public function subscriptions( $tagId, $sortOrder = null ) {
+
+		$path = 'tags/' . $tagId . '/subscriptions';
+
+		$params = array();
+
+		if (isset($sortOrder)) {
+			$params['sort_order'] = $sortOrder;
+		}
+
+		return $this->client->request( $path, 'get', $params );
+
+	}
+
+	/**
+	 * @param int   $tagId
+	 * @param int   $subscriberId
+	 *
+	 * @return \stdClass
+	 */
+	public function delete( $tagId, $subscriberId) {
+
+		$path = 'subscribers/' . $subscriberId . '/tags/' . $tagId;
 
 		return $this->client->request( $path, 'delete');
 
