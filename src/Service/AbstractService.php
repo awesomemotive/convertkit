@@ -1,20 +1,18 @@
 <?php
 
-namespace AwesomeMotive\ConvertKit\Service;
+namespace Examinecom\ConvertKit\Service;
 
-use AwesomeMotive\ConvertKit\ConvertKit;
+use Examinecom\ConvertKit\ConvertKit;
 
-abstract class AbstractService {
+abstract class AbstractService
+{
+    /**
+     * @var ConvertKit
+     */
+    protected $client;
 
-	/**
-	 * @var ConvertKit
-	 */
-	protected $client;
-
-	public function __construct( ConvertKit $client ) {
-
-		$this->client = $client;
-
-	}
-
+    public function __construct(ConvertKit $client)
+    {
+        $this->client = $client;
+    }
 }
