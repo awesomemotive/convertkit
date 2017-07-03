@@ -1,7 +1,7 @@
 <?php
 
-namespace AwesomeMotive\ConvertKit\Exception;
+namespace Examinecom\ConvertKit\Exception;
 
-class ServiceNotFoundException extends \Exception {
-
+class ServiceNotFoundException extends \Exception
+{
 }
