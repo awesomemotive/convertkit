@@ -1,6 +1,6 @@
 <?php
 
-namespace AwesomeMotive\ConvertKit\Service;
+namespace Examinecom\ConvertKit\Service;
 
 class SubscriberService extends AbstractService {
 
@@ -14,54 +14,71 @@ class SubscriberService extends AbstractService {
 	}
 
 	/**
-	 * @param int   $subscriber_id
+	 * @param int   $subscriberId
 	 *
 	 * @return \stdClass
 	 */
-	public function get($subscriber_id) {
+	public function get($subscriberId) {
 
-		$path = 'subscribers/' . $subscriber_id;
+		$path = 'subscribers/' . $subscriberId;
 
 		return $this->client->request($path, 'get');
 
 	}
 
 	/**
-	 * @param int   $subscriber_id
+	 * @param int   $subscriberId
 	 * @param array $data
 	 *
 	 * @return \stdClass
 	 */
-	public function update( $subscriber_id, $data ) {
+	public function update( $subscriberId, $data ) {
 
-		$path = 'subscribers/' . $subscriber_id;
+		$path = 'subscribers/' . $subscriberId;
 
-		return $this->client->request($path, 'post', $data);
+		return $this->client->request($path, 'put', $data);
 
 	}
 
 	/**
-	 * @param array $data
+	 * @param string $subscriberEmail
 	 *
 	 * @return \stdClass
 	 */
-	public function unsubscribe( $data ) {
+	public function unsubscribe( $subscriberEmail ) {
 
 		$path = 'unsubscribe';
+
+		$data = array(
+			'email' => $subscriberEmail,
+		);
 
 		return $this->client->request( $path, 'put', $data);
 
 	}
 
 	/**
-	 * @param int   $subscriber_id
-	 * @param int   $tag_id
+	 * @param int $subscriberId
 	 *
 	 * @return \stdClass
 	 */
-	public function deleteTag( $subscriber_id, $tag_id) {
+	public function tags( $subscriberId ) {
 
-		$path = 'subscribers/' . $subscriber_id . '/tags/' . $tag_id;
+		$path = 'subscribers/' . $subscriberId . '/tags';
+
+		return $this->client->request( $path );
+
+	}
+
+	/**
+	 * @param int   $subscriberId
+	 * @param int   $tagId
+	 *
+	 * @return \stdClass
+	 */
+	public function deleteTag( $subscriberId, $tagId) {
+
+		$path = 'subscribers/' . $subscriberId . '/tags/' . $tagId;
 
 		return $this->client->request( $path, 'delete');
 
