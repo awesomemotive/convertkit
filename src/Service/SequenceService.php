@@ -2,38 +2,38 @@
 
 namespace Examinecom\ConvertKit\Service;
 
-class FormService extends AbstractService
+class SequenceService extends AbstractService
 {
     /**
      * @return \stdClass
      */
     public function all()
     {
-        return $this->client->request('forms');
+        return $this->client->request('sequences');
     }
 
     /**
-     * @param int   $formId
+     * @param int   $sequenceId
      * @param array $data
      *
      * @return \stdClass
      */
-    public function subscribe($formId, $data)
+    public function subscribe($sequenceId, $data)
     {
-        $path = 'forms/'.$formId.'/subscribe';
+        $path = 'sequences/'.$sequenceId.'/subscribe';
 
         return $this->client->request($path, 'post', $data);
     }
 
     /**
-     * @param int    $formId
-     * @param stgrin $sortOrder
+     * @param int    $sequenceId
+     * @param string $sortOrder
      *
      * @return \stdClass
      */
-    public function subscriptions($formId, $sortOrder = null)
+    public function subscriptions($sequenceId, $sortOrder = null)
     {
-        $path = 'forms/'.$formId.'/subscriptions';
+        $path = 'sequences/'.$sequenceId.'/subscriptions';
 
         $params = array();
 
