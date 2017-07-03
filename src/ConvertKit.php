@@ -188,7 +188,17 @@ class ConvertKit {
 	 */
 	public function courses() {
 
-		return $this->getApi( 'CourseService' );
+		return $this->getApi( 'SequenceService' );
+
+	}
+
+	/**
+	 * @return CourseService
+	 * @throws ServiceNotFoundException
+	 */
+	public function sequences() {
+
+		return $this->getApi( 'SequenceService' );
 
 	}
 
