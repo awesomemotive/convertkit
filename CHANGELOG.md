@@ -1,4 +1,14 @@
 
+1.3 / 2017-07-03
+================
+
+  * return json response from guzzle
+  * Replace AwesomeMotive with Examinecom so library does not conflict with older library when both are installed
+  * PHP-CSFixer all files
+  * Add new API endpoints for Forms, Subscribers and Tags
+  * Add new services for Webhooks and Custom Fields
+  * Rename CourseService to SequenceService but still support old course() API
+
 1.2.2 / 2017-07-02
 ==================
 
