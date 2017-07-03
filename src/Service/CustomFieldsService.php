@@ -2,45 +2,41 @@
 
 namespace AwesomeMotive\ConvertKit\Service;
 
-class CustomFieldsService extends AbstractService {
+class CustomFieldsService extends AbstractService
+{
+    /**
+     * @return \stdClass
+     */
+    public function all()
+    {
+        return $this->client->request('custom_fields');
+    }
 
-	/**
-	 * @return \stdClass
-	 */
-	public function all() {
+    /**
+     * @param string $label
+     *
+     * @return \stdClass
+     */
+    public function create($label)
+    {
+        $path = 'custom_fields';
 
-		return $this->client->request('custom_fields');
+        $data = array(
+            'label' => $label,
+        );
 
-	}
+        return $this->client->request($path, 'post', $data);
+    }
 
-	/**
-	 * @param string   $label
-	 *
-	 * @return \stdClass
-	 */
-	public function create( $label ) {
+    /**
+     * @param int $customFieldId
+     *
+     * @return \stdClass
+     */
+    public function delete($customFieldId)
+    {
+        $path = 'custom_fields/'.$customFieldId;
 
-		$path = 'custom_fields';
-
-		$data = array(
-			'label' => $label,
-		);
-
-		return $this->client->request($path, 'post', $data);
-
-	}
-
-	/**
-	 * @param int   $customFieldId
-	 *
-	 * @return \stdClass
-	 */
-	public function delete( $customFieldId ) {
-
-		$path = 'custom_fields/' . $customFieldId;
-
-		return $this->client->request( $path, 'delete');
-
-	}
-
+        return $this->client->request($path, 'delete');
+    }
 }
