@@ -3,9 +3,12 @@
 namespace AwesomeMotive\ConvertKit;
 
 use AwesomeMotive\ConvertKit\Exception\ServiceNotFoundException;
-use AwesomeMotive\ConvertKit\Service\CourseService;
+use AwesomeMotive\ConvertKit\Service\CustomFieldsService;
 use AwesomeMotive\ConvertKit\Service\FormService;
+use AwesomeMotive\ConvertKit\Service\SequenceService;
+use AwesomeMotive\ConvertKit\Service\SubscriberService;
 use AwesomeMotive\ConvertKit\Service\TagService;
+use AwesomeMotive\ConvertKit\Service\WebhookService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Subscriber\Retry\RetrySubscriber;
@@ -183,7 +186,7 @@ class ConvertKit {
 	}
 
 	/**
-	 * @return CourseService
+	 * @return SequenceService
 	 * @throws ServiceNotFoundException
 	 */
 	public function courses() {
@@ -193,7 +196,17 @@ class ConvertKit {
 	}
 
 	/**
-	 * @return CourseService
+	 * @return CustomFieldsService
+	 * @throws ServiceNotFoundException
+	 */
+	public function customFields() {
+
+		return $this->getApi( 'CustomFieldsService' );
+
+	}
+
+	/**
+	 * @return SequenceService
 	 * @throws ServiceNotFoundException
 	 */
 	public function sequences() {
@@ -229,6 +242,16 @@ class ConvertKit {
 	public function subscribers() {
 
 		return $this->getApi( 'SubscriberService' );
+
+	}
+
+	/**
+	 * @return WebhookService
+	 * @throws ServiceNotFoundException
+	 */
+	public function webhooks() {
+
+		return $this->getApi( 'WebhookService' );
 
 	}
 
